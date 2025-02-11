@@ -1,0 +1,160 @@
+# Django Service Request Application - Testing Guide
+
+## Project Folder Structure
+```
+gas_utility/
+│
+├── gas_utility/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│
+├── customer_service/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   └── templates/
+│       ├── base_generic.html
+│       └── customer_service/
+│           ├── submit_request.html
+│           ├── track_requests.html
+│           ├── manage_requests.html
+│           └── update_request.html
+│
+├── manage.py
+└── requirements.txt
+```
+
+## How to Run the Django Application
+
+1. **Create and Activate a Virtual Environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+2. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Apply Migrations:**
+   ```bash
+   python manage.py migrate
+   ```
+
+4. **Create a Superuser (For Admin Access):**
+   ```bash
+   python manage.py createsuperuser
+   ```
+   Follow the prompts to set up an admin username and password.
+
+5. **Run the Development Server:**
+   ```bash
+   python manage.py runserver
+   ```
+
+6. **Access the Application:**
+   - Open `http://127.0.0.1:8000/admin/` for admin access.
+   - Open `http://127.0.0.1:8000/requests/submit/` to submit a service request.
+
+## Introduction
+This guide will help you test the Django Service Request application to ensure it functions as expected. Follow the steps below to test various features including submitting, tracking, and managing service requests.
+
+## 1. Access the Admin Interface
+
+First, log into the Django admin interface to manage service requests and user accounts.
+
+1. Open your web browser and go to `http://127.0.0.1:8000/admin/`
+2. Log in using the superuser credentials you created earlier.
+
+From the admin interface, you can manage users and view submitted service requests.
+
+## 2. Test Submitting a Service Request
+
+1. **Open the Service Request Submission Page:**
+   - Go to `http://127.0.0.1:8000/requests/submit/`
+
+2. **Submit a Request:**
+   - Fill out the form with the service type, description, and optionally attach a file.
+   - Click the "Submit" button.
+
+3. **Verify Submission:**
+   - After submitting, you should be redirected to the request tracking page.
+   - You should see the newly submitted request listed there.
+
+## 3. Test Tracking Service Requests
+
+1. **Open the Request Tracking Page:**
+   - Go to `http://127.0.0.1:8000/requests/track/`
+
+2. **View Requests:**
+   - You should see a list of service requests you have submitted.
+   - Each request should display its service type, status, and creation date.
+
+## 4. Test Managing Service Requests (Admin)
+
+1. **Open the Manage Requests Page:**
+   - Go to `http://127.0.0.1:8000/requests/manage/`
+   - Note: Only staff (admin) users can access this page.
+
+2. **Update a Request:**
+   - Click on the "Update" link next to a request.
+   - Change the status or add a resolved date.
+   - Click the "Update" button.
+
+3. **Verify Update:**
+   - After updating, you should be redirected back to the manage requests page.
+   - The updated request should reflect the changes you made.
+
+## Testing Checklist
+
+### Submit a Service Request
+- [ ] Open the submission page.
+- [ ] Fill out and submit the form.
+- [ ] Verify the request appears on the tracking page.
+
+### Track Service Requests
+- [ ] Open the tracking page.
+- [ ] Verify submitted requests are listed.
+
+### Manage Service Requests (Admin)
+- [ ] Open the manage requests page.
+- [ ] Update a request.
+- [ ] Verify the request is updated.
+
+## Example Test Cases
+
+### Test Case 1: Submitting a New Service Request
+
+- **Navigate to:** `http://127.0.0.1:8000/requests/submit/`
+- **Fill out Form:**
+  - Service Type: "Installation"
+  - Description: "Need a new gas connection."
+  - Attachment: (optional)
+- **Submit Form**
+- **Expected Result:** Redirected to tracking page with the new request listed.
+
+### Test Case 2: Tracking Service Requests
+
+- **Navigate to:** `http://127.0.0.1:8000/requests/track/`
+- **Expected Result:** List of submitted requests with their details.
+
+### Test Case 3: Managing Service Requests (Admin)
+
+- **Navigate to:** `http://127.0.0.1:8000/requests/manage/`
+- **Update Request:**
+  - Change status to "Resolved"
+  - Add resolved date
+- **Submit Update**
+- **Expected Result:** Redirected to manage requests page with the updated request.
+
+By following these steps, you can thoroughly test your Django application to ensure it meets the requirements and functions as expected.
+
